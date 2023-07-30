@@ -39,11 +39,14 @@ local supported_devices = {
     -- Linnstrument
     { midi_base_name= 'linnstrument midi',          device_type='linnstrument'   },
 
+    -- deluge
+    { midi_base_name= 'deluge 1',                 device_type='deluge'   },
+
   }
 }
 
 function supported_devices.find_midi_device_type(midi_device)
-  --print('finding device: ' .. midi_device.id .. " with name " .. midi_device.name)
+  -- print('finding device: ' .. midi_device.id .. " with name " .. midi_device.name)
   local sysex_ident_resp = nil
   -- TODO get response to sysex indentify call
 
@@ -53,9 +56,9 @@ function supported_devices.find_midi_device_type(midi_device)
     return 'launchpad'
   else
     for _,device_def in pairs(supported_devices.midi_devices) do
-      if sysex_ident_resp and device_def.sysex_ident then
+      -- if sysex_ident_resp and device_def.sysex_ident then
         --TODO use General Sysex ident call to try and ID device
-      end
+      -- end
       -- Fall back to midi name matching
       -- TODO strip / ignore device name suffix for multiple devices
       if (device_def.midi_base_name == string.lower(midi_device.name)) then return device_def.device_type end
